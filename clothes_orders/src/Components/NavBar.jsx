@@ -16,7 +16,7 @@ function NavBar({status}) {
               {status === 2 || status === 3 || status === 4 ? <NavLink to="/" end className={ ({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Home</NavLink> : null}
               {status === 3 ? <NavLink to="/clothes" className={ ({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Clothes</NavLink> : null}
               {status === 3 ? <NavLink to="/orders/admin" className={ ({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Orders</NavLink> : null}
-              {status === 4 ? <NavLink to="/orders/user" className={ ({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>My Orders</NavLink> : null}
+              {status === 2 ? <NavLink to="/orders/user" className={ ({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>My Orders</NavLink> : null}
               </Nav>
               <Nav>
                 {status !== 1 ? <NavLink to="/logout" className="nav-link">Logout</NavLink> : null}
