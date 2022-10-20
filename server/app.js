@@ -142,6 +142,17 @@ app.post("/server/clothes", (req, res) => {
     });
 });
 
+app.post("/home/orders/:id", (req, res) => {
+    const sql = `
+    INSERT INTO orders (comment, size , clothe_id)
+    VALUES (?, ?, ?)
+    `;
+    con.query(sql, [req.body.comment, req.body.size, req.params.id], (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
 //READ ALL
 app.get("/server/clothes", (req, res) => {
     const sql = `
@@ -158,6 +169,27 @@ app.get("/home/clothes", (req, res) => {
     const sql = `
     SELECT *
     FROM clothes
+    `;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+app.get("/home/orders", (req, res) => {
+    const sql = `
+    SELECT *
+    FROM orders
+    `;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+// client
+app.get("/home/client", (req, res) => {
+    const sql = `
+    SELECT id, name
+    FROM users
     `;
     con.query(sql, (err, result) => {
         if (err) throw err;

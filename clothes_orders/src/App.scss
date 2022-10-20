@@ -154,3 +154,14 @@
         opacity: 0.3;
     }
 }
+.form-selection{
+    margin-bottom: 10px;
+}
+.order_inputs_container{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    div{
+        padding: 10px 0;
+    }
+}

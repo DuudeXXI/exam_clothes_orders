@@ -1,11 +1,10 @@
 import { useContext } from 'react';
-import HomeContext from '../../Contexts/HomeContext';
+import AdminOrdersContext from "../../Contexts/AdminOrders";
 import Line from './Line';
-import clothesData from '../Data/clothes';
 
 function List() {
 
-    const { clothes } = useContext(HomeContext)
+    const { clothes } = useContext(AdminOrdersContext)
 
     return (
             <div className="card" style={{margin: "30px 0 0 0"}}>

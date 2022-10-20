@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useContext } from "react";
-import HomeContext from "../../Contexts/HomeContext";
+import AdminOrdersContext from "../../Contexts/AdminOrders";
 import clothes from "../Data/clothes";
 import sizes from "../Data/sizes";
 
 function Line({ clothe }) {
 
-  const { setOrder} = useContext(HomeContext)
+  const { setOrder} = useContext(AdminOrdersContext)
 
   const [size, setSize] = useState(0)
   const [comment, setComment] = useState('')
@@ -41,32 +41,6 @@ function Line({ clothe }) {
             </div>
             <div className="line_info_2">{clothe.price}</div>
           </div>
-        </div>
-        <div className="order_inputs_container">
-          <div>
-            <select
-              className="form-select"
-              value={size}
-              onChange={(e) => setSize(e.target.value)}
-            >
-              <option value={0} disabled>Choose size</option>
-              {
-                sizes.map(s => <option key={s.id} value={s.id}>{s.type}</option>)
-              }
-            </select>
-          </div>
-          <div>
-            <textarea
-              maxLength={120}
-              type="text"
-              placeholder="Add your comment"
-              style={{maxWidth: "300px", minHeight: "100px", maxHeight:"100px"}}
-              className="form-control"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            ></textarea>
-          </div>
-          <button type="button" onClick={add} className="btn btn-outline-success">Order</button>
         </div>
       </div>
     </li>
