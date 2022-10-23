@@ -13,7 +13,6 @@ const Main = () => {
 
   const [lastUpdate, setLastUpdate] = useState(Date.now());
   const [clothes, setClothes] = useState(null);
-  const [orders, setOrders] = useState(null);
   const [filter, setFilter] = useState(0);
   const [sortBy, setSortBy] = useState("");
 
@@ -46,12 +45,6 @@ const Main = () => {
         setLastUpdate(Date.now());
     })
  }, [order, ]);
-
-  useEffect(() => {
-    axios.get("http://localhost:3003/home/orders", authConfig()).then((res) => {
-      setOrders(res.data);
-    });
-  }, [lastUpdate]);
 
   return (
     <HomeContext.Provider

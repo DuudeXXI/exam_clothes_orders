@@ -6,20 +6,10 @@ import sizes from "../Data/sizes";
 
 function Line({ clothe }) {
 
-  const { setOrder} = useContext(AdminOrdersContext)
+  const { setOrder } = useContext(AdminOrdersContext)
 
   const [size, setSize] = useState(0)
   const [comment, setComment] = useState('')
-
-  const add = () => {
-    setOrder({
-      comment,
-      size,
-      clothe_id: clothe.id
-    })
-    setComment('')
-    setSize(0)
-  }
 
   return (
     <li className="list-group-item">

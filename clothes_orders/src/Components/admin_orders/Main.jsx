@@ -30,11 +30,12 @@ const Main = () => {
   }, [lastUpdate]);
 
   useEffect(() => {
-    axios.get("http://localhost:3003/home/orders", authConfig()).then((res) => {
+    axios.get("http://localhost:3003/home/orders", authConfig())
+    .then((res) => {
       setOrders(res.data);
     });
   }, [lastUpdate]);
-// client id get
+// client id get CIA GAUNAMI VISI CLIENTS ID
   useEffect(() => {
     axios
       .get("http://localhost:3003/home/client", authConfig())
@@ -42,8 +43,6 @@ const Main = () => {
         setClient(res.data);
       });
   }, [lastUpdate]);
-  
-  console.log(client);
 
   useEffect(() => {
     if (null === order) {
@@ -51,6 +50,7 @@ const Main = () => {
     }
  }, [order]);
 
+ console.log(orders);
 
   return (
     <AdminOrdersContext.Provider
@@ -58,6 +58,7 @@ const Main = () => {
         clothes,
         setClothes,
         setOrder,
+        setOrders,
       }}
     >
       <div className="container">
