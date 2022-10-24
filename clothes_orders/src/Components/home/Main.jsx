@@ -9,7 +9,7 @@ import { authConfig } from "../../Functions/auth";
 // Data
 import clothesData from "../Data/clothes";
 const Main = () => {
-  const {} = useContext(DataContext);
+  const { userId, setUserId} = useContext(DataContext);
 
   const [lastUpdate, setLastUpdate] = useState(Date.now());
   const [clothes, setClothes] = useState(null);
@@ -18,15 +18,16 @@ const Main = () => {
 
   const [order, setOrder] = useState(null);
   const [client, setClient] = useState(null);
-
+  const fromLocal = JSON.parse(localStorage.getItem('user_id'))
   // READ for list
   useEffect(() => {
     axios
       .get("http://localhost:3003/home/clothes", authConfig())
       .then((res) => {
         setClothes(res.data);
+        setUserId(fromLocal)
       });
-  }, [lastUpdate]);
+  }, [lastUpdate, setUserId]);
 // client id get
   useEffect(() => {
     axios
@@ -52,6 +53,7 @@ const Main = () => {
         clothes,
         setClothes,
         setOrder,
+        userId
       }}
     >
       <div className="container">

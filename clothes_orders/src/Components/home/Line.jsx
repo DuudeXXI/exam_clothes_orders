@@ -6,7 +6,7 @@ import sizes from "../Data/sizes";
 
 function Line({ clothe }) {
 
-  const { setOrder } = useContext(HomeContext)
+  const { setOrder, userId} = useContext(HomeContext)
 
   const [size, setSize] = useState(0)
   const [comment, setComment] = useState('')
@@ -15,7 +15,8 @@ function Line({ clothe }) {
     setOrder({
       comment,
       size,
-      clothe_id: clothe.id
+      clothe_id: clothe.id,
+      client_id: userId
     })
     setComment('')
     setSize(0)

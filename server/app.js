@@ -75,23 +75,23 @@ app.use(doAuth)
 app.get("/login-check", (req, res) => {
     const sql = `
          SELECT
-         name, role
+         id, name, role
          FROM users
          WHERE session = ?
         `;
     con.query(sql, [req.headers['authorization'] || ''], (err, result) => {
         if (err) throw err;
         if (!result.length) {
-            res.send({ msg: 'error', status: 1 }); // user not logged
+            res.send({ msg: 'error', status: 1}); // user not logged
         } else {
             if ('admin' === req.query.role) {
                 if (result[0].role !== 10) {
-                    res.send({ msg: 'error', status: 2 }); // not an admin
+                    res.send({ msg: 'error', status: 2, id: result[0].id }); // not an admin
                 } else {
-                    res.send({ msg: 'ok', status: 3 }); // is admin
+                    res.send({ msg: 'ok', status: 3, id: result[0].id }); // is admin
                 }
             } else {
-                res.send({ msg: 'ok', status: 4 }); // is user
+                res.send({ msg: 'ok', status: 4, id: result[0].id }); // is user
             }
         }
     });
@@ -144,10 +144,10 @@ app.post("/server/clothes", (req, res) => {
 
 app.post("/home/orders/:id", (req, res) => {
     const sql = `
-    INSERT INTO orders (comment, size , clothe_id)
-    VALUES (?, ?, ?)
+    INSERT INTO orders (comment, size , clothe_id, client_id)
+    VALUES (?, ?, ?, ?)
     `;
-    con.query(sql, [req.body.comment, req.body.size, req.params.id], (err, result) => {
+    con.query(sql, [req.body.comment, req.body.size, req.body.clothe_id, req.body.client_id, req.params.id], (err, result) => {
         if (err) throw err;
         res.send(result);
     });

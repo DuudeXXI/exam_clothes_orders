@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import HomeContext from '../../Contexts/HomeContext';
 import Line from './Line';
-import clothesData from '../Data/clothes';
 
 function List() {
 

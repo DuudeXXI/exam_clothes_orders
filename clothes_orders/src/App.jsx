@@ -17,10 +17,16 @@ import DataContext from "./Contexts/DataContext";
 import { login, logout, authConfig } from './Functions/auth';
 
 function App() {
+
   const [roleChange, setRoleChange] = useState(Date.now());
+  const [userId, setUserId] = useState(null)
+  
+  useEffect(() => {
+    setUserId(JSON.parse(localStorage.getItem("user_id")))
+  }, [userId])
 
   return (
-    <DataContext.Provider value={{}}>
+    <DataContext.Provider value={{userId, setUserId}}>
       <BrowserRouter>
         <ShowNav roleChange={roleChange}/>
         <Routes>
@@ -48,13 +54,14 @@ function ShowNav({roleChange}) {
   return <NavBar status={status} />
 }
 
-function RequireAuth({ children, role }) {
+function RequireAuth({ children, role, setUserId }) {
   const [view, setView] = useState(<h2>Please wait...</h2>);
 
   useEffect(() => {
     axios.get('http://localhost:3003/login-check?role=' + role, authConfig())
       .then(res => {
         if ('ok' === res.data.msg) {
+          localStorage.setItem("user_id", JSON.stringify(res.data.id))
           setView(children);
         }
         else if (res.data.status === 2) {
@@ -65,7 +72,7 @@ function RequireAuth({ children, role }) {
         }
       })
 
-  }, [children, role]);
+  }, [children, role, setUserId]);
 
   return view;
 }
@@ -119,6 +126,7 @@ function LogoutPage({ setRoleChange }) {
   useEffect(() => {
     logout();
     setRoleChange(Date.now());
+    localStorage.setItem('user_id', null)
   }, [setRoleChange]);
 
   return (
