@@ -175,10 +175,12 @@ app.get("/home/clothes", (req, res) => {
         res.send(result);
     });
 });
-app.get("/home/orders", (req, res) => {
+app.get("/server/orders", (req, res) => {
     const sql = `
-    SELECT *
-    FROM orders
+    SELECT c.*, o.id, o.size, o.comment, o.client_id
+    FROM clothes AS c
+    LEFT JOIN orders AS o
+    ON o.clothe_id = c.id
     `;
     con.query(sql, (err, result) => {
         if (err) throw err;

@@ -17,47 +17,44 @@ const Main = () => {
   const [filter, setFilter] = useState(0);
   const [sortBy, setSortBy] = useState("");
 
-  const [order, setOrder] = useState(null);
+  const [list, setList] = useState(null);
   const [client, setClient] = useState(null);
 
   // READ for list
-  useEffect(() => {
-    axios
-      .get("http://localhost:3003/home/clothes", authConfig())
-      .then((res) => {
-        setClothes(res.data);
-      });
-  }, [lastUpdate]);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3003/home/clothes", authConfig())
+  //     .then((res) => {
+  //       setClothes(res.data);
+  //     });
+  // }, [lastUpdate]);
 
   useEffect(() => {
-    axios.get("http://localhost:3003/home/orders", authConfig())
+    axios.get("http://localhost:3003/server/orders", authConfig())
     .then((res) => {
-      setOrders(res.data);
+      setList(reList(res.data));
+      console.log(reList(res.data));
     });
   }, [lastUpdate]);
-// client id get CIA GAUNAMI VISI CLIENTS ID
-  useEffect(() => {
-    axios
-      .get("http://localhost:3003/home/client", authConfig())
-      .then((res) => {
-        setClient(res.data);
-      });
-  }, [lastUpdate]);
 
-  useEffect(() => {
-    if (null === order) {
-        return;
-    }
- }, [order]);
-
- console.log(orders);
+  const reList = data => {
+    const d = new Map();
+    data.forEach(line => {
+        if (d.has(line.id)) {
+            d.set(line.id, [...d.get(line.id), line]);
+        } else {
+            d.set(line.id, [line]);
+        }
+    });
+    return [...d];
+}
 
   return (
     <AdminOrdersContext.Provider
       value={{
         clothes,
         setClothes,
-        setOrder,
+        setList,
         setOrders,
       }}
     >
