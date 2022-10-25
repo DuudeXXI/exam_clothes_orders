@@ -4,7 +4,7 @@ import Line from './Line';
 
 function List() {
 
-    const { clothes } = useContext(AdminOrdersContext)
+    const { list } = useContext(AdminOrdersContext)
 
     return (
             <div className="card" style={{margin: "30px 0 0 0"}}>
@@ -12,7 +12,7 @@ function List() {
             <div className="card-body">
                 <ul className="list-group">
                     {
-                        clothes?.map(c => <Line key={c.id} clothe={c} />)
+                        list?.map(c => <Line key={c.id} clothe={c} />)
                     }
                 </ul>
             </div>

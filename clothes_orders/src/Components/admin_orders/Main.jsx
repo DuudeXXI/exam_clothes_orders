@@ -17,7 +17,6 @@ const Main = () => {
   const [sortBy, setSortBy] = useState("");
 
   const [list, setList] = useState(null);
-  const [client, setClient] = useState(null);
 
   // READ for list
   // useEffect(() => {
@@ -40,10 +39,10 @@ const Main = () => {
   const reList = data => {
     const d = new Map();
     data.forEach(line => {
-        if (d.has(line.type)) {
-            d.set(line.type, [...d.get(line.type), line]);
+        if (d.has(line.name)) {
+            d.set(line.name, [...d.get(line.name), line]);
         } else {
-            d.set(line.type, [line]);
+            d.set(line.name, [line]);
         }
     });
     return [...d];
@@ -53,6 +52,7 @@ const Main = () => {
     <AdminOrdersContext.Provider
       value={{
         clothes,
+        list,
         setClothes,
         setList,
         setOrders,

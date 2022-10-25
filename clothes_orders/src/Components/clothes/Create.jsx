@@ -7,6 +7,7 @@ function Create() {
 
     const [type, setType] = useState('0');
     const [color, setColor] = useState('');
+    const [name, setName] = useState('');
     const [hex, setHex] = useState('');
     const [price, setPrice] = useState('');
     const fileInput = useRef();
@@ -29,12 +30,14 @@ function Create() {
             type,
             price: parseFloat(price),
             color,
-            image: photoPrint
+            image: photoPrint,
+            name
         });
         setColor('');
         setHex('');
-        setPrice('')
-        setType('0')
+        setPrice('');
+        setType('0');
+        setName('');
         setPhotoPrint(null);
         fileInput.current.value = null;
     }
@@ -49,6 +52,10 @@ function Create() {
         <div className="card m-4">
             <h5 className="card-header">New Apparel</h5>
             <div className="card-body">
+            <div className="mb-3">
+                    <label className="form-label">Name</label>
+                    <input maxLength={50} type="text" className="form-control" value={name} onChange={e => setName(e.target.value)}/>
+                </div>
             <div className="mb-3">
                     <label className="form-label">Type</label>
                     <select className="form-select" value={type} onChange={e => setType(e.target.value)}>

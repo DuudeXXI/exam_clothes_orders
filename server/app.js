@@ -133,10 +133,10 @@ app.post("/register", (req, res) => {
 //CREATE
 app.post("/server/clothes", (req, res) => {
     const sql = `
-    INSERT INTO clothes (type, color, price, image)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO clothes (type, color, price, image, name)
+    VALUES (?, ?, ?, ?, ?)
     `;
-    con.query(sql, [req.body.type, req.body.color, req.body.price, req.body.image], (err, result) => {
+    con.query(sql, [req.body.type, req.body.color, req.body.price, req.body.image, req.body.name], (err, result) => {
         if (err) throw err;
         res.send(result);
     });
@@ -232,24 +232,24 @@ app.put("/server/clothes/:id", (req, res) => {
     if (req.body.deletePhoto) {
         sql = `
         UPDATE clothes
-        SET type = ?, color = ?, price = ?, image = null
+        SET type = ?, color = ?, price = ?, name = ?, image = null
         WHERE id = ?
         `;
-        r = [req.body.type, req.body.color, req.body.price, req.params.id];
+        r = [req.body.type, req.body.color, req.body.price, req.body.name, req.params.id];
     } else if (req.body.image) {
         sql = `
         UPDATE clothes
-        SET type = ?, color = ?, price = ?, image = ?
+        SET type = ?, color = ?, price = ?, name = ?, image = ?
         WHERE id = ?
         `;
-        r = [req.body.type, req.body.color, req.body.price, req.body.image, req.params.id];
+        r = [req.body.type, req.body.color, req.body.price, req.body.name, req.body.image, req.params.id];
     } else {
         sql = `
         UPDATE clothes
-        SET type = ?, color = ?, price = ?
+        SET type = ?, color = ?, name = ?, price = ?
         WHERE id = ?
         `;
-        r = [req.body.type, req.body.color, req.body.price, req.params.id]
+        r = [req.body.type, req.body.color, req.body.price, req.body.name, req.params.id]
     }
     con.query(sql, r, (err, result) => {
         if (err) throw err;
