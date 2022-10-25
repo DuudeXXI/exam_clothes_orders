@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useContext } from "react";
 import AdminOrdersContext from "../../Contexts/AdminOrders";
-import clothes from "../Data/clothes";
+import clothesData from "../Data/clothes";
 import sizes from "../Data/sizes";
 
 function Line({ clothe }) {
@@ -24,7 +24,7 @@ function Line({ clothe }) {
           )}
           <div className="line_info_container">
             <div className="line_info_3">
-              {clothes.find((c) => c.id === clothe.type)?.type}
+              {clothesData.find((c) => c.id === clothe.type)?.type}
             </div>
             <div className="line_info_1">
               Color code: <strong>{clothe.color}</strong>

@@ -7,7 +7,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { authConfig } from "../../Functions/auth";
 // Data
-import clothesData from "../Data/clothes";
 const Main = () => {
   const {} = useContext(DataContext);
 
@@ -34,16 +33,17 @@ const Main = () => {
     .then((res) => {
       setList(reList(res.data));
       console.log(reList(res.data));
+      console.log(res.data);
     });
   }, [lastUpdate]);
 
   const reList = data => {
     const d = new Map();
     data.forEach(line => {
-        if (d.has(line.id)) {
-            d.set(line.id, [...d.get(line.id), line]);
+        if (d.has(line.type)) {
+            d.set(line.type, [...d.get(line.type), line]);
         } else {
-            d.set(line.id, [line]);
+            d.set(line.type, [line]);
         }
     });
     return [...d];
