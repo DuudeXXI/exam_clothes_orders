@@ -13,8 +13,8 @@
         gap:10px;
         .img-bin{
             display: flex;
-            width: 140px;
-            height:140px;
+            width: 160px;
+            height:160px;
             overflow: hidden;
             border-radius: 10px;
             align-items: center;
@@ -27,8 +27,8 @@
     
         .no_image{
             display: flex;
-            width: 140px;
-            height:140px;
+            width: 160px;
+            height:160px;
             overflow: hidden;
             border-radius: 10px;
             align-items: center;
@@ -163,5 +163,35 @@
     justify-content: center;
     div{
         padding: 10px 0;
+    }
+}
+
+.comment-container{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    .line_buttons{
+        margin-top: 10px;
+        gap:5px;
+        display: flex;
+        align-items: center;
+        flex-flow: column nowrap;
+        button{
+            width: 90px;
+            height:45px;
+        }
+        div{
+            text-align: center;
+            font-size: 10px;
+        }
+    }
+}
+@media(max-width: 768px) {
+    .comment-container{
+        flex-flow: column nowrap;
+        .line_buttons{
+            flex-flow: row nowrap;
+        }
     }
 }

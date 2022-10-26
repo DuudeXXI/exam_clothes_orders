@@ -224,6 +224,16 @@ app.delete("/server/clothes/:id", (req, res) => {
         res.send(result);
     });
 });
+app.delete("/server/orders/:id", (req, res) => {
+    const sql = `
+    DELETE FROM orders
+    WHERE id = ?
+    `;
+    con.query(sql, [req.params.id], (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
 
 //EDIT
 app.put("/server/clothes/:id", (req, res) => {

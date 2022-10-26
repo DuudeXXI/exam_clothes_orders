@@ -15,26 +15,37 @@ const Main = () => {
   const [orders, setOrders] = useState(null);
   const [filter, setFilter] = useState(0);
   const [sortBy, setSortBy] = useState("");
+  const [status, setStatus] = useState(0);
+  const [deleteData, setDeleteData] = useState(null);
 
   const [list, setList] = useState(null);
-
-  // READ for list
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3003/home/clothes", authConfig())
-  //     .then((res) => {
-  //       setClothes(res.data);
-  //     });
-  // }, [lastUpdate]);
 
   useEffect(() => {
     axios.get("http://localhost:3003/server/orders", authConfig())
     .then((res) => {
       setList(reList(res.data));
-      console.log(reList(res.data));
-      console.log(res.data);
     });
-  }, [lastUpdate]);
+  }, [lastUpdate, status]);
+
+//   useEffect(() => {
+//     if (!status) {
+//         return;
+//     }
+//     axios.put('http://localhost:3003/server/clothes/' + editData.id, editData, authConfig())
+//         .then(res => {
+//             setLastUpdate(Date.now());
+//         });
+// }, [editData]);
+
+useEffect(() => {
+  if (null === deleteData) {
+      return;
+  }
+  axios.delete('http://localhost:3003/server/orders/' + deleteData.id, authConfig())
+      .then(res => {
+          setLastUpdate(Date.now());
+      });
+}, [deleteData]);
 
   const reList = data => {
     const d = new Map();
@@ -56,6 +67,9 @@ const Main = () => {
         setClothes,
         setList,
         setOrders,
+        status,
+        setStatus,
+        setDeleteData
       }}
     >
       <div className="container">
