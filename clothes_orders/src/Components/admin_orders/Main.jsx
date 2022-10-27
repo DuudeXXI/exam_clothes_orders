@@ -15,8 +15,8 @@ const Main = () => {
   const [orders, setOrders] = useState(null);
   const [filter, setFilter] = useState(0);
   const [sortBy, setSortBy] = useState("");
-  const [status, setStatus] = useState(0);
   const [deleteData, setDeleteData] = useState(null);
+  const [editData, setEditData] = useState(null);
 
   const [list, setList] = useState(null);
 
@@ -25,17 +25,17 @@ const Main = () => {
     .then((res) => {
       setList(reList(res.data));
     });
-  }, [lastUpdate, status]);
+  }, [lastUpdate]);
 
-//   useEffect(() => {
-//     if (!status) {
-//         return;
-//     }
-//     axios.put('http://localhost:3003/server/clothes/' + editData.id, editData, authConfig())
-//         .then(res => {
-//             setLastUpdate(Date.now());
-//         });
-// }, [editData]);
+  useEffect(() => {
+    if (null === editData) {
+        return;
+    }
+    axios.put('http://localhost:3003/server/orders/' + editData.id, editData, authConfig())
+        .then(res => {
+            setLastUpdate(Date.now());
+        });
+}, [editData]);
 
 useEffect(() => {
   if (null === deleteData) {
@@ -67,9 +67,8 @@ useEffect(() => {
         setClothes,
         setList,
         setOrders,
-        status,
-        setStatus,
-        setDeleteData
+        setDeleteData,
+        setEditData
       }}
     >
       <div className="container">

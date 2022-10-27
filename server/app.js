@@ -177,7 +177,7 @@ app.get("/home/clothes", (req, res) => {
 });
 app.get("/server/orders", (req, res) => {
     const sql = `
-    SELECT c.*, o.id, o.size, o.comment, o.client_id
+    SELECT c.*, o.id, o.size, o.comment, o.client_id, o.status
     FROM clothes AS c
     LEFT JOIN orders AS o
     ON o.clothe_id = c.id
@@ -262,6 +262,18 @@ app.put("/server/clothes/:id", (req, res) => {
         r = [req.body.type, req.body.color, req.body.price, req.body.name, req.params.id]
     }
     con.query(sql, r, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+app.put("/server/orders/:id", (req, res) => {
+    const sql = `
+    UPDATE orders
+    SET status = ?
+    WHERE id = ?
+    `;
+    con.query(sql, [req.body.status, req.params.id], (err, result) => {
         if (err) throw err;
         res.send(result);
     });

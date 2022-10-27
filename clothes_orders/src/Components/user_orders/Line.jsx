@@ -1,22 +1,15 @@
 import { useState } from "react";
 import { useContext } from "react";
-import AdminOrdersContext from "../../Contexts/AdminOrders";
+import UserOrdersContext from "../../Contexts/UserOrders";
 import clothesData from "../Data/clothes";
 import sizes from "../Data/sizes";
+import DataContext from "../../Contexts/DataContext";
 
 function Line({ clothe }) {
   
-  const { setOrder, setDeleteData, setEditData } = useContext(AdminOrdersContext);
+  const { userId } = useContext(DataContext);
 
-  const [status, setStatus] = useState(0);
-
-  const edit = (order) => {
-    setStatus(s => !s)
-    setEditData({
-      id:order.id,
-      status
-    });
-  };
+  const { status, setStatus, setDeleteData } = useContext(UserOrdersContext);
   
   return (
     <li className="list-group-item">
@@ -58,8 +51,8 @@ function Line({ clothe }) {
                 Comment: <strong>{order.comment}</strong>
               </div>
               <div className="line_buttons">
-                <div>Status: <strong>{ order.status ? "Confirmed" : "Unconfirmed"}</strong></div>
-                <button type="button" className="btn btn-outline-success" onClick={()=> edit(order)}>
+                <div>Status: <strong>{ status ? "Confirmed" : "Unconfirmed"}</strong></div>
+                <button type="button" className="btn btn-outline-success" onClick={() => setStatus((s) => !s)}>
                   Change
                 </button>
                 <button type="button" className="btn btn-outline-danger" onClick={() => setDeleteData(order)}>
