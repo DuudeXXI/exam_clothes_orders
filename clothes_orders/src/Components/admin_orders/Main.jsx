@@ -20,13 +20,16 @@ const Main = () => {
 
   const [list, setList] = useState(null);
 
+  
+  
   useEffect(() => {
     axios.get("http://localhost:3003/server/orders", authConfig())
     .then((res) => {
-      setList(reList(res.data));
+      setList(reList(res.data).map((d, i) => ({...d, show: true, row: i})));
     });
   }, [lastUpdate]);
-
+  console.log(list);
+  
   useEffect(() => {
     if (null === editData) {
         return;

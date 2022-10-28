@@ -17,7 +17,7 @@ function Line({ clothe }) {
       status
     });
   };
-  
+
   return (
     <li className="list-group-item">
       <div className="line_content">

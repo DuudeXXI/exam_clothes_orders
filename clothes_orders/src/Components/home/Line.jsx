@@ -4,7 +4,7 @@ import HomeContext from "../../Contexts/HomeContext";
 import clothes from "../Data/clothes";
 import sizes from "../Data/sizes";
 
-function Line({ clothe }) {
+function Line({ clothe, setClothes }) {
 
   const { setOrder, userId} = useContext(HomeContext)
 

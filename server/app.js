@@ -187,31 +187,6 @@ app.get("/server/orders", (req, res) => {
         res.send(result);
     });
 });
-// client
-app.get("/home/client", (req, res) => {
-    const sql = `
-    SELECT id, name
-    FROM users
-    `;
-    con.query(sql, (err, result) => {
-        if (err) throw err;
-        res.send(result);
-    });
-});
-
-// FOR JOINED LIST
-// app.get("/server/all", (req, res) => {
-//     const sql = `
-//     SELECT title, c.*, s.id AS sid, price
-//     FROM electricity_suppliers AS s
-//     INNER JOIN electricity_consumers AS c
-//     ON c.supplier_id = s.id
-//     `;
-//     con.query(sql, (err, result) => {
-//         if (err) throw err;
-//         res.send(result);
-//     });
-// });
 
 //DELETE
 app.delete("/server/clothes/:id", (req, res) => {

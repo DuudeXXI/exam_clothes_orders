@@ -4,7 +4,7 @@ import Line from './Line';
 
 function List() {
 
-    const { clothes } = useContext(HomeContext)
+    const { clothes, setClothes, filter } = useContext(HomeContext)
 
     return (
             <div className="card" style={{margin: "30px 0 0 0"}}>
@@ -12,7 +12,7 @@ function List() {
             <div className="card-body">
                 <ul className="list-group">
                     {
-                        clothes?.map(c => <Line key={c.id} clothe={c} />)
+                        clothes?.map(c => c.show ? <Line key={c.id} clothe={c} /> : null)
                     }
                 </ul>
             </div>
