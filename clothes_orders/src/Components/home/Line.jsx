@@ -34,7 +34,8 @@ function Line({ clothe }) {
             <div className="no_image">No image</div>
           )}
           <div className="line_info_container">
-            <div className="line_info_3">
+            <div className="line_info_3">{clothe.name}</div>
+            <div className="line_info_2">
               {clothes.find((c) => c.id === clothe.type)?.type}
             </div>
             <div className="line_info_1">

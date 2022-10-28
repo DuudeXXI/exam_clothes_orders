@@ -12,7 +12,7 @@ function List() {
             <div className="card-body">
                 <ul className="list-group">
                     {
-                        list?.map(c => c[1][0].id !== null ? <Line key={c[1][0].id} clothe={c} /> : null)
+                        list?.map(c => <Line key={c[1][0].id} clothe={c} />)
                     }
                 </ul>
             </div>
