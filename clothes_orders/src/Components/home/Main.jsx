@@ -9,67 +9,76 @@ import { authConfig } from "../../Functions/auth";
 // Data
 import clothesData from "../Data/clothes";
 const Main = () => {
-  const { userId, setUserId} = useContext(DataContext);
+  const { userId, setUserId } = useContext(DataContext);
 
   const [lastUpdate, setLastUpdate] = useState(Date.now());
   const [clothes, setClothes] = useState(null);
 
   const [filter, setFilter] = useState(0);
-  const [sortBy, setSortBy] = useState('default');
-  
+  const [sortBy, setSortBy] = useState("default");
+
   const [order, setOrder] = useState(null);
-  const fromLocal = JSON.parse(localStorage.getItem('user_id'))
-  
+  const fromLocal = JSON.parse(localStorage.getItem("user_id"));
+
   // READ for list
   useEffect(() => {
     axios
       .get("http://localhost:3003/home/clothes", authConfig())
       .then((res) => {
-        setClothes(res.data.map((d, i) => ({...d, show: true, row: i})));
-        setUserId(fromLocal)
-        console.log('labas');
+        setClothes(res.data.map((d, i) => ({ ...d, show: true, row: i })));
+        setUserId(fromLocal);
+        console.log(res.data);
       });
-  }, [lastUpdate, setUserId,filter]);
+  }, [lastUpdate, setUserId, filter]);
 
   useEffect(() => {
     if (null === order) {
-        return;
+      return;
     }
-    axios.post('http://localhost:3003/home/orders/' + order.clothe_id, order, authConfig())
-    .then(res => {
+    axios
+      .post(
+        "http://localhost:3003/home/orders/" + order.clothe_id,
+        order,
+        authConfig()
+      )
+      .then((res) => {
         setLastUpdate(Date.now());
-    })
- }, [order, ]);
+      });
+  }, [order]);
 
-//   useEffect(() => {
-//     if (0 === filter || clothes === null) {
-//         return;
-//     }
-//     setClothes(m => m.type === filter ? { ...m, show: true } : { ...m, show: false });
-//  }, [filter]);
+  //   useEffect(() => {
+  //     if (0 === filter || clothes === null) {
+  //         return;
+  //     }
+  //     setClothes(m => m.type === filter ? { ...m, show: true } : { ...m, show: false });
+  //  }, [filter]);
 
- console.log(filter);
- console.log(clothes?.map(a => console.log(a.type)));
+  const sortData = [
+    { v: "default", t: "Default" },
+    { v: "price_asc", t: "Price 1-9" },
+    { v: "price_desc", t: "Price 9-1" },
+    { v: "type_asc", t: "Type 1-9" },
+    { v: "type_desc", t: "Type 9-1" }
+  ];
 
-    const sortData = [
-        {v: 'default', t:'Default'},
-        {v: 'price_asc', t:'Price 1-9'}, 
-        {v: 'price_desc', t:'Price 9-1'}
-    ];
-
-    useEffect(() => {
-        switch (sortBy) {
-            case 'price_asc':
-                setClothes(m => [...m].sort((a, b) => a.price - b.price));
-                break;
-            case 'price_desc':
-                setClothes(m => [...m].sort((b, a) => a.price - b.price));
-                break;
-            default:
-                setClothes(m => [...m ?? []].sort((a, b) => a.row - b.row));
-        }
-
-    }, [sortBy, setClothes]);
+  useEffect(() => {
+    switch (sortBy) {
+      case "price_asc":
+        setClothes((m) => [...m].sort((a, b) => a.price - b.price));
+        break;
+      case "price_desc":
+        setClothes((m) => [...m].sort((b, a) => a.price - b.price));
+        break;
+      case "type_asc":
+        setClothes((m) => [...m].sort((a, b) => a.type - b.type));
+        break;
+      case "type_desc":
+        setClothes((m) => [...m].sort((b, a) => a.type - b.type));
+        break;
+      default:
+        setClothes((m) => [...(m ?? [])].sort((a, b) => a.row - b.row));
+    }
+  }, [sortBy, setClothes]);
 
   return (
     <HomeContext.Provider
@@ -77,13 +86,12 @@ const Main = () => {
         clothes,
         setClothes,
         setOrder,
-        setClothes,
-        userId
+        userId,
       }}
     >
       <div className="container">
         <div className="row">
-          <div className="col-lg-12 col-sm-12" style={{margin: "30px 0 0 0"}}>
+          <div className="col-lg-12 col-sm-12" style={{ margin: "30px 0 0 0" }}>
             <div className="card">
               <h5 className="card-header">Filter</h5>
               <div className="card-body">
@@ -102,14 +110,16 @@ const Main = () => {
                   </select>
                 </div>
                 <div className="form-selection">
-                <select
+                  <select
                     className="form-select"
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
                   >
-                    {
-                    sortData.map((g) => (<option key={g.v} value={g.v}>{g.t}</option>))
-                    }
+                    {sortData.map((g) => (
+                      <option key={g.v} value={g.v}>
+                        {g.t}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
