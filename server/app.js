@@ -85,9 +85,13 @@ app.get("/login-check", (req, res) => {
             res.send({ msg: 'error', status: 1}); // user not logged
         } else {
             if ('admin' === req.query.role) {
-                if (result[0].role !== 10) {
+                if (result[0].role ===1) {
+                    res.send({ msg: 'ok', status: 4, id: result[0].id }); // not an admin
+                }
+                else if (result[0].role !== 10 ) {
                     res.send({ msg: 'error', status: 2, id: result[0].id }); // not an admin
-                } else {
+                } 
+                else {
                     res.send({ msg: 'ok', status: 3, id: result[0].id }); // is admin
                 }
             } else {
@@ -175,7 +179,21 @@ app.get("/home/clothes", (req, res) => {
         res.send(result);
     });
 });
+
 app.get("/server/orders", (req, res) => {
+    const sql = `
+    SELECT c.*, o.id, o.size, o.comment, o.client_id, o.status
+    FROM clothes AS c
+    LEFT JOIN orders AS o
+    ON o.clothe_id = c.id
+    `;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+app.get("/user/orders", (req, res) => {
     const sql = `
     SELECT c.*, o.id, o.size, o.comment, o.client_id, o.status
     FROM clothes AS c

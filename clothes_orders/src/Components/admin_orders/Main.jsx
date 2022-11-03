@@ -13,8 +13,6 @@ const Main = () => {
   const [lastUpdate, setLastUpdate] = useState(Date.now());
   const [clothes, setClothes] = useState(null);
   const [orders, setOrders] = useState(null);
-  const [filter, setFilter] = useState(0);
-  const [sortBy, setSortBy] = useState("");
   const [deleteData, setDeleteData] = useState(null);
   const [editData, setEditData] = useState(null);
 
@@ -28,7 +26,6 @@ const Main = () => {
       setList(reList(res.data).map((d, i) => ({...d, show: true, row: i})));
     });
   }, [lastUpdate]);
-  console.log(list);
   
   useEffect(() => {
     if (null === editData) {

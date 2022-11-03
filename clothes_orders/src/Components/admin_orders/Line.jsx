@@ -1,20 +1,16 @@
-import { useState } from "react";
 import { useContext } from "react";
 import AdminOrdersContext from "../../Contexts/AdminOrders";
 import clothesData from "../Data/clothes";
 import sizes from "../Data/sizes";
 
 function Line({ clothe }) {
-  
-  const { setOrder, setDeleteData, setEditData } = useContext(AdminOrdersContext);
-
-  const [status, setStatus] = useState(0);
+  const { setDeleteData, setEditData } =
+    useContext(AdminOrdersContext);
 
   const edit = (order) => {
-    setStatus(s => !s)
     setEditData({
-      id:order.id,
-      status
+      id: order.id,
+      status: !order.status,
     });
   };
 
@@ -50,19 +46,28 @@ function Line({ clothe }) {
               </div>
               <div className="line_info_2">
                 Requested size:{" "}
-                <strong>
-                  {sizes.find((s) => s.id === order.size)?.type}
-                </strong>
+                <strong>{sizes.find((s) => s.id === order.size)?.type}</strong>
               </div>
               <div>
                 Comment: <strong>{order.comment}</strong>
               </div>
               <div className="line_buttons">
-                <div>Status: <strong>{ order.status ? "Confirmed" : "Unconfirmed"}</strong></div>
-                <button type="button" className="btn btn-outline-success" onClick={()=> edit(order)}>
+                <div>
+                  Status:{" "}
+                  <strong>{order.status ? "Confirmed" : "Unconfirmed"}</strong>
+                </div>
+                <button
+                  type="button"
+                  className="btn btn-outline-success"
+                  onClick={() => edit(order)}
+                >
                   Change
                 </button>
-                <button type="button" className="btn btn-outline-danger" onClick={() => setDeleteData(order)}>
+                <button
+                  type="button"
+                  className="btn btn-outline-danger"
+                  onClick={() => setDeleteData(order)}
+                >
                   Delete
                 </button>
               </div>

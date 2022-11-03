@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useContext } from "react";
 import UserOrdersContext from "../../Contexts/UserOrders";
 import clothesData from "../Data/clothes";
@@ -8,8 +7,6 @@ import DataContext from "../../Contexts/DataContext";
 function Line({ clothe }) {
   
   const { userId } = useContext(DataContext);
-
-  const { status, setStatus, setDeleteData } = useContext(UserOrdersContext);
   
   return (
     <li className="list-group-item">
@@ -35,11 +32,11 @@ function Line({ clothe }) {
         </div>
       </div>
       <ul className="list-group">
-        {clothe[1]?.map((order) => (
+        {clothe[1].filter(a => a.client_id === userId).map((order) => (
           <li className="list-group-item" key={order.id}>
             <div className="comment-container">
               <div className="line_info_2">
-                Client Number: <strong>{order.client_id}</strong>
+                Your Client Number: <strong>{order.client_id}</strong>
               </div>
               <div className="line_info_2">
                 Requested size:{" "}
@@ -50,14 +47,8 @@ function Line({ clothe }) {
               <div>
                 Comment: <strong>{order.comment}</strong>
               </div>
-              <div className="line_buttons">
-                <div>Status: <strong>{ status ? "Confirmed" : "Unconfirmed"}</strong></div>
-                <button type="button" className="btn btn-outline-success" onClick={() => setStatus((s) => !s)}>
-                  Change
-                </button>
-                <button type="button" className="btn btn-outline-danger" onClick={() => setDeleteData(order)}>
-                  Delete
-                </button>
+              <div className="line_text_only">
+                <div>Status: <strong>{ order.status ? "Confirmed" : "Unconfirmed"}</strong></div>
               </div>
             </div>
           </li>
