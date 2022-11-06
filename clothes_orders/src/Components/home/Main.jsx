@@ -29,7 +29,7 @@ const Main = () => {
         setUserId(fromLocal);
         console.log(res.data);
       });
-  }, [lastUpdate, setUserId, filter]);
+  }, [lastUpdate, setUserId, filter, fromLocal]);
 
   useEffect(() => {
     if (null === order) {
@@ -45,13 +45,6 @@ const Main = () => {
         setLastUpdate(Date.now());
       });
   }, [order]);
-
-  //   useEffect(() => {
-  //     if (0 === filter || clothes === null) {
-  //         return;
-  //     }
-  //     setClothes(m => m.type === filter ? { ...m, show: true } : { ...m, show: false });
-  //  }, [filter]);
 
   const sortData = [
     { v: "default", t: "Default" },

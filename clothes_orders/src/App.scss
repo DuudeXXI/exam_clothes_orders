@@ -171,6 +171,15 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+    .line_text_only{
+        display: flex;
+        align-items: center;
+        flex-flow: column nowrap;
+        div{
+            text-align: center;
+            font-size: 10px;
+        }
+    }
     .line_buttons{
         margin-top: 10px;
         gap:5px;

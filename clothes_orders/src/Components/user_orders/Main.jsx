@@ -14,15 +14,14 @@ const Main = () => {
   const [lastUpdate, setLastUpdate] = useState(Date.now());
   const [clothes, setClothes] = useState(null);
   const [orders, setOrders] = useState(null);
-  const [filter, setFilter] = useState(0);
-  const [sortBy, setSortBy] = useState("");
   const [status, setStatus] = useState(0);
   const [deleteData, setDeleteData] = useState(null);
   console.log(userId);
   const [list, setList] = useState(null);
+  console.log(list);
 
   useEffect(() => {
-    axios.get("http://localhost:3003/server/orders", authConfig())
+    axios.get("http://localhost:3003/user/orders", authConfig())
     .then((res) => {
       setList(reList(res.data));
     });
@@ -59,7 +58,6 @@ useEffect(() => {
     });
     return [...d];
 }
-
   return (
     <UserOrdersContext.Provider
       value={{
