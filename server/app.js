@@ -7,13 +7,13 @@ app.use(cors());
 const md5 = require('js-md5');
 const uuid = require('uuid');
 const mysql = require("mysql");
+
 app.use(
     express.urlencoded({
         extended: true,
     })
 );
 app.use(express.json());
-
 
 const con = mysql.createConnection({
     host: "localhost",
