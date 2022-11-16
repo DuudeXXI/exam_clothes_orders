@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import UserOrdersContext from "../../Contexts/UserOrders";
 import clothesData from "../Data/clothes";
 import sizes from "../Data/sizes";
 import DataContext from "../../Contexts/DataContext";
@@ -27,7 +26,7 @@ function Line({ clothe }) {
             <div className="line_info_1">
               Color code: <strong>{clothe[1][0].color}</strong>
             </div>
-            <div className="line_info_2">{clothe[1][0].price}</div>
+            <div className="line_info_2">{clothe[1][0].price} Eur</div>
           </div>
         </div>
       </div>

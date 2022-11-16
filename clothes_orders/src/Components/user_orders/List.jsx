@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import UserOrdersContext from "../../Contexts/UserOrders";
 import Line from './Line';
+import DataContext from '../../Contexts/DataContext';
 // import DataContext from '../../Contexts/DataContext';
 
 function List() {
@@ -8,7 +9,8 @@ function List() {
     // const { userId } = useContext(DataContext);
     // .filter(a => a[1][0].client_id === userId)
     const { list } = useContext(UserOrdersContext)
-    console.log(list);
+    const { userId } = useContext(DataContext);
+
     return (
             <div className="card" style={{margin: "30px 0 0 0"}}>
             <h5 className="card-header">Selected Type</h5>

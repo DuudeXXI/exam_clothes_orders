@@ -27,7 +27,6 @@ const Main = () => {
       .then((res) => {
         setClothes(res.data.map((d, i) => ({ ...d, show: true, row: i })));
         setUserId(fromLocal);
-        console.log(res.data);
       });
   }, [lastUpdate, setUserId, filter, fromLocal]);
 

@@ -16,9 +16,9 @@ const Main = () => {
   const [orders, setOrders] = useState(null);
   const [status, setStatus] = useState(0);
   const [deleteData, setDeleteData] = useState(null);
-  console.log(userId);
+
   const [list, setList] = useState(null);
-  console.log(list);
+
 
   useEffect(() => {
     axios.get("http://localhost:3003/user/orders", authConfig())
